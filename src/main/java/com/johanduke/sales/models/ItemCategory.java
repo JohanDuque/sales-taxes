@@ -1,7 +1,7 @@
 package com.johanduke.sales.models;
 
 public enum ItemCategory {
-    BOOK,
+    BOOKS,
     FOOD,
     MEDICAL,
     ANY_GOOD
