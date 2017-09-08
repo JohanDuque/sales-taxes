@@ -1,21 +1,28 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class TaxesCalculator {
 
-    public static final double IMPORT_DUTY_PERCENTAGE = 5;
+    public static final double IMPORT_DUTY_PERCENTAGE = 0.05;
+    public static final int DECIMAL_PLACES = 2;
 
     public static void setTotalPrice(BasketItem basketItem){
         if(basketItem.getItem().isImported()){
             applyImportDuty(basketItem);
         }
-        //return item;
     }
 
     protected static void applyImportDuty(BasketItem basketItem) {
         double itemPrice = basketItem.getItem().getPrice();
-        //I want to be sure that itemPrice is positive to avoid negative numbers and division by zero
-        double importDuty = itemPrice > 0 ? IMPORT_DUTY_PERCENTAGE / itemPrice * 100 : 0;
+        double importDuty = itemPrice * IMPORT_DUTY_PERCENTAGE;
 
         basketItem.setTotalPrice(itemPrice + importDuty);
     }
 
+    protected static double round(double value) {
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(DECIMAL_PLACES, RoundingMode.HALF_UP);
 
+        return bd.doubleValue();
+    }
 }
