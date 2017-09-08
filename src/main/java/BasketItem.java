@@ -1,4 +1,5 @@
 import com.johanduke.sales.models.Item;
+import com.johanduke.sales.models.ItemCategory;
 
 public class BasketItem {
 
@@ -25,5 +26,13 @@ public class BasketItem {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public boolean isTaxable(){
+        return this.item.getCategory() == ItemCategory.ANY_GOOD;
+    }
+
+    public boolean isImported(){
+        return this.item.isImported();
     }
 }

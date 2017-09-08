@@ -7,9 +7,16 @@ public class TaxesCalculator {
     public static final int DECIMAL_PLACES = 2;
 
     public static void setTotalPrice(BasketItem basketItem){
-        if(basketItem.getItem().isImported()){
+        if(basketItem.isImported()){
             applyImportDuty(basketItem);
         }
+        if(basketItem.isTaxable()){
+            applyTaxes(basketItem);
+        }
+    }
+//TODO refactor, use doubles instead of void, move logit to Basket
+    protected static void applyTaxes(BasketItem basketItem) {
+
     }
 
     protected static void applyImportDuty(BasketItem basketItem) {
