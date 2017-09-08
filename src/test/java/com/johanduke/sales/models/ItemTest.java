@@ -44,7 +44,7 @@ public class ItemTest {
     }
 
     @Test
-    public void fIPassIsImportedyNameAndPriceOtherParametersWillBewDefault(){
+    public void ifIPassIsImportedyNameAndPriceOtherParametersWillBewDefault(){
         String name = "Steppen Wolf";
         double price = 15.23;
         boolean isImported = true;
@@ -53,7 +53,7 @@ public class ItemTest {
 
         assertEquals(item.getCategory(), ItemCategory.ANY_GOOD);
         assertEquals(item.getName(), name);
-        assertEquals(item.getPrice(), price, 0);
+        assertEquals(item.getPrice(), 15.25, 0.02);
         assertEquals(item.isImported(), isImported);
     }
 
