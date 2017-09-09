@@ -1,4 +1,3 @@
-import com.johanduke.sales.models.Item;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -6,24 +5,15 @@ import static org.junit.Assert.assertEquals;
 public class TaxesCalculatorTest {
 
     @Test
-    public void setTotalPriceToABasketItemWithNoPriceLeftTheItemUnmodified() throws Exception {
-        BasketItem basketItem = new BasketItem(1, new Item());
-        TaxesCalculator.setTotalPrice(basketItem);
-        assertEquals(0, basketItem.getTotalPrice(), 0);
+    public void calculateImportDutyToAZeroNetPriceReturnsZero() throws Exception {
+        double actual = TaxesCalculator.calculateImportDuty(0);
+        assertEquals(0, actual, 0);
     }
 
     @Test
-    public void appliesImportDutyToABasketItemWithNoPriceLeftTheItemUnmodified() throws Exception {
-        BasketItem basketItem = new BasketItem(1, new Item());
-        TaxesCalculator.applyImportDuty(basketItem);
-        assertEquals(0, basketItem.getTotalPrice(), 0);
-    }
-
-    @Test
-    public void appliesImportDutyToAnImportedBasketItemWithAPriceAddsFivePercentToTheTotalPrice() throws Exception {
-        BasketItem basketItem = new BasketItem(1, new Item(true, "any good", 100));
-        TaxesCalculator.applyImportDuty(basketItem);
-        assertEquals(105, basketItem.getTotalPrice(), 0);
+    public void calculateImportDutyToAPositivenNetPriceRetunrPricePlusFivePrecent() throws Exception {
+        double actual = TaxesCalculator.calculateImportDuty(33);
+        assertEquals(1.65, actual, 0);
     }
 
     @Test

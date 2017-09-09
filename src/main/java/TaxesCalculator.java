@@ -3,27 +3,16 @@ import java.math.RoundingMode;
 
 public class TaxesCalculator {
 
-    public static final double IMPORT_DUTY_PERCENTAGE = 0.05;
-    public static final int DECIMAL_PLACES = 2;
+    private static final double IMPORT_DUTY_PERCENTAGE = 0.05;
+    private static final double GOOD_TAXES_PERCENTAGE = 0.10;
+    private static final int DECIMAL_PLACES = 2;
 
-    public static void setTotalPrice(BasketItem basketItem){
-        if(basketItem.isImported()){
-            applyImportDuty(basketItem);
-        }
-        if(basketItem.isTaxable()){
-            applyTaxes(basketItem);
-        }
-    }
-//TODO refactor, use doubles instead of void, move logit to Basket
-    protected static void applyTaxes(BasketItem basketItem) {
-
+    protected static double calculateTaxes(double netPrice) {
+        return round(netPrice * GOOD_TAXES_PERCENTAGE);
     }
 
-    protected static void applyImportDuty(BasketItem basketItem) {
-        double itemPrice = basketItem.getItem().getPrice();
-        double importDuty = itemPrice * IMPORT_DUTY_PERCENTAGE;
-
-        basketItem.setTotalPrice(itemPrice + importDuty);
+    protected static double calculateImportDuty(double netPrice) {
+        return round(netPrice * IMPORT_DUTY_PERCENTAGE);
     }
 
     protected static double round(double value) {

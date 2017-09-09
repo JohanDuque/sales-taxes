@@ -5,34 +5,42 @@ public class BasketItem {
 
     private int quantity;
     private Item item;
-    private double totalPrice;
 
     public BasketItem(int quantity, Item item) {
         this.quantity = quantity;
         this.item = item;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public Item getItem() {
-        return item;
-    }
-
     public double getTotalPrice() {
-        return totalPrice;
+        return calculateTotalPrice();
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+    public double getTotalTaxes() {
+        return calculateTotalPrice() - item.getPrice();
     }
 
-    public boolean isTaxable(){
+    public String getItemName() { return item.getName(); }
+
+    public int getQuantity() {  return quantity; }
+
+    private boolean isTaxable(){
         return this.item.getCategory() == ItemCategory.ANY_GOOD;
     }
 
-    public boolean isImported(){
+    private boolean isImported(){
         return this.item.isImported();
     }
+
+    protected double calculateTotalPrice() {
+        double totalPrice = item.getPrice();
+
+        if (isImported()){
+            totalPrice += TaxesCalculator.calculateImportDuty(item.getPrice());
+        }
+        if (isTaxable()){
+            totalPrice += TaxesCalculator.calculateTaxes(item.getPrice());
+        }
+        return totalPrice * quantity;
+    }
+
 }
