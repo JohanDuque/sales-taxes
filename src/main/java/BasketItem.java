@@ -5,6 +5,7 @@ public class BasketItem {
 
     private int quantity;
     private Item item;
+    private double totalPrice = -1;
 
     public BasketItem(int quantity, Item item) {
         this.quantity = quantity;
@@ -32,15 +33,19 @@ public class BasketItem {
     }
 
     protected double calculateTotalPrice() {
-        double totalPrice = item.getPrice();
+        if(totalPrice == -1) {
+            this.totalPrice = item.getPrice();
 
-        if (isImported()){
-            totalPrice += TaxesCalculator.calculateImportDuty(item.getPrice());
+            if (isImported()) {
+                totalPrice += TaxesCalculator.calculateImportDuty(item.getPrice());
+            }
+            if (isTaxable()) {
+                totalPrice += TaxesCalculator.calculateTaxes(item.getPrice());
+            }
+            return TaxesCalculator.round(totalPrice * quantity);
+        }else{
+            return TaxesCalculator.round(this.totalPrice);
         }
-        if (isTaxable()){
-            totalPrice += TaxesCalculator.calculateTaxes(item.getPrice());
-        }
-        return totalPrice * quantity;
     }
 
 }

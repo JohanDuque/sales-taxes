@@ -5,7 +5,11 @@ import java.util.List;
 
 public class ShoppingBasket {
 
-    private List<BasketItem> basketItems = new ArrayList<>();
+    private List<BasketItem> basketItems;
+
+    public ShoppingBasket() {
+        this.basketItems = new ArrayList<>();
+    }
 
     public void addItem(int quantity, Item item){
         basketItems.add(new BasketItem(quantity, item));

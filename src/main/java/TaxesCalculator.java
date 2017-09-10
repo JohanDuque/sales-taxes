@@ -18,7 +18,9 @@ public class TaxesCalculator {
     protected static double round(double value) {
         BigDecimal bd = new BigDecimal(value);
         bd = bd.setScale(DECIMAL_PLACES, RoundingMode.HALF_UP);
+        double rounded = bd.doubleValue();
 
-        return bd.doubleValue();
+        return rounded;
     }
+
 }
