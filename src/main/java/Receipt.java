@@ -19,8 +19,8 @@ public class Receipt {
             printedReceipt += basketItem.getQuantity() + " " + basketItem.getItemName()  + ": " +basketItem.getTotalPrice() + "\n";
         }
 
-        total = TaxesCalculator.round(total);
-        salesTaxes = TaxesCalculator.round(salesTaxes);
+        total = TaxesCalculator.plainRound(total);
+        salesTaxes = TaxesCalculator.plainRound(salesTaxes);
 
         printedReceipt += "Sales Taxes: " + salesTaxes + "\n";
         printedReceipt += "Total: " + total;
@@ -28,5 +28,13 @@ public class Receipt {
 
     public String getPrintedReceipt() {
         return printedReceipt;
+    }
+
+    public double getSalesTaxes() {
+        return salesTaxes;
+    }
+
+    public double getTotal() {
+        return total;
     }
 }

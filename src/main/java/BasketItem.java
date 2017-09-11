@@ -13,7 +13,7 @@ public class BasketItem {
     }
 
     public double getTotalPrice() {
-        return calculateTotalPrice();
+        return TaxesCalculator.plainRound(calculateTotalPrice());
     }
 
     public double getTotalTaxes() {
@@ -34,7 +34,7 @@ public class BasketItem {
 
     protected double calculateTotalPrice() {
         if(totalPrice == -1) {
-            this.totalPrice = item.getPrice();
+            this.totalPrice = item.getPrice() * quantity;
 
             if (isImported()) {
                 totalPrice += TaxesCalculator.calculateImportDuty(item.getPrice());
@@ -42,9 +42,11 @@ public class BasketItem {
             if (isTaxable()) {
                 totalPrice += TaxesCalculator.calculateTaxes(item.getPrice());
             }
-            return TaxesCalculator.round(totalPrice * quantity);
+            //return TaxesCalculator.roundUp(totalPrice * quantity);
+            return totalPrice;
         }else{
-            return TaxesCalculator.round(this.totalPrice);
+            //return TaxesCalculator.roundUp(this.totalPrice);
+            return this.totalPrice;
         }
     }
 
