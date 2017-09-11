@@ -3,6 +3,8 @@ import com.johanduke.sales.models.ItemCategory;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class ReceiptTest {
 
     ShoppingBasket shoppingBasket;
@@ -26,9 +28,13 @@ public class ReceiptTest {
         shoppingBasket.addItem(1, new Item(ItemCategory.FOOD, "chocolate bar", 0.85));
 
         receipt = new Receipt(shoppingBasket);
+        System.out.println();
+        System.out.println("Output 1");
         System.out.println(receipt.getPrintedReceipt());
         System.out.println();
 
+        assertEquals(1.50, receipt.getSalesTaxes(), 0);
+        assertEquals(29.83, receipt.getTotal(), 0);
     }
 
     @Test
@@ -42,9 +48,13 @@ public class ReceiptTest {
         shoppingBasket.addItem(1, new Item(true, "imported bottle of perfume", 47.50));
 
         receipt = new Receipt(shoppingBasket);
+        System.out.println();
+        System.out.println("Output 2");
         System.out.println(receipt.getPrintedReceipt());
         System.out.println();
 
+        assertEquals(7.65, receipt.getSalesTaxes(), 0);
+        assertEquals(65.15, receipt.getTotal(), 0);
     }
 
     @Test
@@ -62,9 +72,13 @@ public class ReceiptTest {
         shoppingBasket.addItem(1, new Item(true, ItemCategory.FOOD, "imported box of chocolates", 11.25));
 
         receipt = new Receipt(shoppingBasket);
+        System.out.println();
+        System.out.println("Output 3");
         System.out.println(receipt.getPrintedReceipt());
         System.out.println();
 
+        assertEquals(6.70, receipt.getSalesTaxes(), 0);
+        assertEquals(74.68, receipt.getTotal(), 0);
     }
 
 
